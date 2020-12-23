@@ -172,7 +172,8 @@ async function updateConfig(props: { account: org.Account; destinationOrg: Organ
       };
     } else {
       // New Account
-      accountKey = `${pascalCase(account.Name!).replace('_', '')}-${hashName(account.Email?.toLowerCase()!, 6)}`;
+      const pascalAccountKey = pascalCase(account.Name!).replace('_', '');
+      accountKey = `${pascalAccountKey.replace(/^[0-9_-]*/, '')}-${hashName(account.Email?.toLowerCase()!, 6)}`;
       if (`${accountPrefix}.${format}` === configRootFilePath) {
         console.log(`Account Found in Root Path`);
         accountConfig[accountKey] = {
